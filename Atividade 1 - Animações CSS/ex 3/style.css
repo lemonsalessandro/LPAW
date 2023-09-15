@@ -1,0 +1,62 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.element-wrapper {
+    height: 300px;
+    width: 300px;
+    border: 3px solid #515151;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.element {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #000;
+    animation: rastro 2s ease-in-out infinite forwards paused ;
+    opacity: 0;
+}
+
+.element-wrapper:hover .element{
+    animation-play-state: running;
+}
+
+.element-wrapper:hover .rastro{
+    opacity: 1;
+}
+
+.rastro1 {
+    animation-delay: 40ms;
+    opacity: 0.7;
+}
+
+.rastro2 {
+    animation-delay: 80ms;
+    opacity: 0.4;
+}
+
+@keyframes rastro {
+
+    0%,
+    100% {
+        transform: translateX(-100px);
+    }
+
+    50% {
+        transform: translateX(100px);
+    }
+}

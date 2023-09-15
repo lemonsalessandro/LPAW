@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "animejs": "^3.2.1",
+    "nes.css": "^2.3.0"
+  }
+}

@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.container {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+input {
+    text-align: center;
+    outline: none;
+}
+
+label {
+    font-size: 12px;
+    opacity: 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.input-group input {
+    border: none;
+    border-bottom: 1px solid rgb(72, 72, 72);
+}
+
+input:focus::placeholder {
+    opacity: 0;
+    font-size: 10px;
+}
+
+.input-group:focus-within label {
+    font-size: 16px;
+    transition: .2s ease;
+    opacity: 1;
+}
+
+.button-group button {
+    padding: 15px 35px;
+    border: none;
+    outline: none;
+    background-color: #80807A;
+    position: relative;
+}
+
+.button-group button:hover {
+    background-color: #18181e;
+    color: white;
+    transition: .2s;
+}
+
+.button-group button:active {
+    scale: 1.05;
+}
+
+.button-group button:hover::before,
+.button-group button:hover::after {
+    transition: 1s;
+    animation: btnEffect 1s ease;
+    animation-delay: .2s;
+}
+
+.button-group button::before {
+    top: 0;
+    left: 0;
+}
+
+.button-group button::before,
+.button-group button::after {
+    content: '';
+    height: 100%;
+    width: 3%;
+    position: absolute;
+    background-color: #80807A;
+    opacity: 0;
+}
+
+.button-group button::before {
+    top: 0;
+    left: 0;
+}
+
+.button-group button::after {
+    top: 0;
+    right: 0;
+}
+
+@keyframes btnEffect {
+    0%,
+    100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: .5;
+        padding: 0 10px;
+    }
+}

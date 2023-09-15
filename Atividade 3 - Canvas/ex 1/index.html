@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        #canvas {
+            border: 1px solid black;
+            width: 600px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+</body>
+
+<script>
+
+    window.addEventListener("load", canvasApp, false);
+
+    function canvasApp() {
+
+        let ctx = document.getElementById("canvas").getContext('2d');
+
+        quad(ctx, 50, 30, 50, 5, "magenta");
+        quad(ctx, 120, 30, 50, 5, "blue", "red");
+
+
+        function quad(ctx, x, y, s, l, color, fill = false) {
+            ctx.lineWidth = l;
+            ctx.beginPath();
+            ctx.rect(x, y, s, s);
+            ctx.strokeStyle = color;
+            ctx.stroke();
+
+            if (fill) {
+                ctx.fillStyle = fill;
+                ctx.fill();
+            }
+
+        }
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        #canvas {
+            border: 1px solid black;
+            width: 600px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+</body>
+
+<script>
+
+    window.addEventListener("load", canvasApp, false);
+
+    function canvasApp() {
+
+        let ctx = document.getElementById("canvas").getContext('2d');
+
+        circ(ctx, 100, 50, 30, 5, "#f00");
+        circ(ctx, 200, 50, 40, 10, "#00f", "#0f0");
+
+        function circ(ctx, x, y, r, l, color, fill = false) {
+            ctx.lineWidth = l;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI / 180 * 360);
+            ctx.strokeStyle = color;
+            ctx.stroke();
+
+            if (fill) {
+                ctx.fillStyle = fill;
+                ctx.fill();
+            }
+        }
+    }
+</script>
+
+</html>

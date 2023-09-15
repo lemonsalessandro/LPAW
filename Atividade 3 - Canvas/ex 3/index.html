@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        #canvas {
+            border: 1px solid black;
+            width: 600px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+</body>
+
+<script>
+
+    window.addEventListener("load", canvasApp, false);
+
+    function canvasApp() {
+
+        let ctx = document.getElementById("canvas").getContext('2d');
+
+        triEqui(ctx, 100, 10, 80, "#000", false);
+        triEqui(ctx, 200, 10, 80, "#0f0", true);
+
+        function triEqui(ctx, x, y, l, color = "#000", rev = false) {
+            let a = (Math.sqrt(3) / 2) *l;
+            ctx.lineWidth = 1;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+        
+            if (rev) {
+                ctx.moveTo(x, y + a);
+                ctx.lineTo(x - l / 2, y);
+                ctx.lineTo(x + l / 2, y);
+            } else {
+                ctx.moveTo(x, y);
+                ctx.lineTo(x - l / 2, y + a);
+                ctx.lineTo(x + l / 2, y + a);
+            }
+
+            ctx.closePath();
+            ctx.fill();
+        }
+
+    }
+
+</script>
+
+</html>
