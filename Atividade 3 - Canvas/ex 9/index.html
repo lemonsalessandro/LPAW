@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        #canvas {
+            border: 1px solid black;
+            width: 1000px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+</body>
+
+<script>
+
+    window.addEventListener("load", canvasApp, false);
+
+    function canvasApp() {
+        let canvas = document.getElementById("canvas");
+        let ctx = document.getElementById("canvas").getContext('2d');
+
+        //background 1
+        ctx.fillStyle = "#0B1932";
+        ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height)
+
+        //reflexo
+        ctx.shadowBlur = 50;
+        ctx.shadowColor = "white";
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+
+        //revisar forma de fazer um ciruclo com blur maior
+        circ(ctx, canvas.width / 2, canvas.height * 1.1, 100, "none", "rgba(255,255,255, 0.8)");
+
+        //background 2
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = "#120133";
+        ctx.fillRect(0, 0, canvas.width, canvas.height - (canvas.height / 2))
+
+        //sol
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = "yellow";
+
+        let solRadial = ctx.createRadialGradient(canvas.width / 2, 40, 40, canvas.width / 2, 40, 15)
+        solRadial.addColorStop(.6, "yellow")
+        solRadial.addColorStop(1, "white")
+
+        circ(ctx, canvas.width / 2, 40, 25, "yellow", solRadial);
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = "white";
+
+        function circ(ctx, x, y, r, color, fill) {
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI / 180 * 360);
+            ctx.strokeStyle = color;
+            ctx.stroke();
+            ctx.fillStyle = fill;
+            ctx.fill();
+        }
+
+    }
+</script>
+
+</html>

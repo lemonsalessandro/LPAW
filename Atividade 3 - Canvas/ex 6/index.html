@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        #canvas {
+            border: 1px solid black;
+            width: 800px;
+            height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+</body>
+
+<script>
+
+    window.addEventListener("load", canvasApp, false);
+
+    function canvasApp() {
+
+        let ctx = document.getElementById("canvas").getContext('2d');
+
+        smile(ctx, 100, 50, 40)
+
+        function smile(ctx, x, y, size) {
+            circ(ctx, x, y, size, size / 4, "#000", "yellow");
+            circ(ctx, x + size / 2, y / 1.15, size / 10, 1, "#000", "#000");
+            circ(ctx, x - size /  2, y / 1.15, size / 10, 1, "#000", "#000");
+            mouth(ctx, x, y + size / 4, size / 2, size / 10, "#000", "yellow")
+        }
+
+
+        function circ(ctx, x, y, r, l, color, fill = false, mouth = false) {
+            ctx.lineWidth = l;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI / 180 * 360);
+            ctx.strokeStyle = color;
+            ctx.stroke();
+
+            if (fill) {
+                ctx.fillStyle = fill;
+                ctx.fill();
+            }
+        }
+
+        function mouth(ctx, x, y, r, l, color) {
+            ctx.lineWidth = l;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI);
+            ctx.strokeStyle = color;
+            ctx.stroke();
+
+            if (fill) {
+                ctx.fillStyle = fill;
+                ctx.fill();
+            }
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        #canvas {
+            border: 1px solid black;
+            width: 800px;
+            height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+</body>
+
+<script>
+
+    window.addEventListener("load", canvasApp, false);
+
+    function canvasApp() {
+        let canvas = document.getElementById("canvas");
+        let ctx = document.getElementById("canvas").getContext('2d');
+        
+        let texto = 'TRICOLOR!';
+        let textSize = 24;
+        ctx.font = `bold ${textSize}px sans-serif`;
+        ctx.textBaseline = "middle";
+        ctx.textAlign = 'center';
+        let gradiente = ctx.createLinearGradient(
+            10, 60,
+            canvas.width, canvas.height)
+        gradiente.addColorStop(0, "#000")
+        gradiente.addColorStop(.5, "#fff")
+        gradiente.addColorStop(1, "#00f")
+        ctx.fillStyle = gradiente;
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+        let gradienteTexto = ctx.createLinearGradient(
+            5, 200,
+            canvas.width, canvas.height)
+        gradiente.addColorStop(0, "#00f")
+        gradiente.addColorStop(.5, "#fff")
+        gradiente.addColorStop(1, "#000")
+        
+        ctx.fillStyle = 'black'
+        ctx.fillText(texto, canvas.width / 2, canvas.height / 2);
+
+    }
+</script>
+
+</html>

@@ -21,10 +21,11 @@
             width: 100vw;
         }
 
+
         #canvas {
             border: 1px solid black;
-            width: 600px;
-            height: 300px;
+            width: 800px;
+            height: 400px;
         }
     </style>
 
@@ -43,39 +44,21 @@
     window.addEventListener("load", canvasApp, false);
 
     function canvasApp() {
-
+        let canvas = document.getElementById("canvas");
         let ctx = document.getElementById("canvas").getContext('2d');
 
-        drawStar(ctx, 50,50,50, 'Saddlebrown');
-        drawStar(ctx, 100,25,40, 'gray');
-        drawStar(ctx, 150,50,40, 'gold');
-
-       function drawStar(ctx, x, y, l, color){
-        triEqui(ctx, x, y/1.5, l, color);
-        triEqui(ctx, x, y, l, color, rev = true);
-       }
-
-       function triEqui(ctx, x, y, l, color = "#000", rev = false) {
-            let a = (Math.sqrt(3) / 2) * l;
-            ctx.lineWidth = 1;
+        function writeCenterXY(ctx, cwidth, cheight, text, color = 'black', size = 12, family = 'serif',
+            style = 'normal', base = 'alphabetic') {
+            ctx.font = `${size}px ${family}`;
             ctx.fillStyle = color;
-            ctx.beginPath();
-
-            if (rev) {
-                ctx.moveTo(x, y + a);
-                ctx.lineTo(x - l / 2, y);
-                ctx.lineTo(x + l / 2, y);
-            } else {
-                ctx.moveTo(x, y);
-                ctx.lineTo(x - l / 2, y + a);
-                ctx.lineTo(x + l / 2, y + a);
-            }
-
-            ctx.closePath();
-            ctx.fill();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, cwidth/2, cheight/2);
         }
-    }
 
+        writeCenterXY(ctx, canvas.width, canvas.height, "CENTRALIZADO", '#00f', 24, 'sans-serif', 'bold', 'top');
+
+    }
 </script>
 
 </html>

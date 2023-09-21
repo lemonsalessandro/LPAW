@@ -23,8 +23,8 @@
 
         #canvas {
             border: 1px solid black;
-            width: 600px;
-            height: 300px;
+            width: 800px;
+            height: 400px;
         }
     </style>
 
@@ -44,18 +44,27 @@
 
     function canvasApp() {
 
+        let canvas = document.getElementById("canvas");
         let ctx = document.getElementById("canvas").getContext('2d');
 
-        drawStar(ctx, 50,50,50, 'Saddlebrown');
-        drawStar(ctx, 100,25,40, 'gray');
-        drawStar(ctx, 150,50,40, 'gold');
+        shield(ctx, canvas.width / 2, canvas.height / 2, 100);
 
-       function drawStar(ctx, x, y, l, color){
-        triEqui(ctx, x, y/1.5, l, color);
-        triEqui(ctx, x, y, l, color, rev = true);
-       }
 
-       function triEqui(ctx, x, y, l, color = "#000", rev = false) {
+        function shield(ctx, x, y, size) {
+            circ(ctx, x, y, size / 2.5, size / 5, "#f00", "#fff");
+            circ(ctx, x, y, size / 5, size / 6.66, "#f00", "#00f");
+            drawStar(ctx, x, y/1.25, size/3, '#fff');
+        }
+
+        function drawStar(ctx, x, y, l, color) {
+            const a = (Math.sqrt(3) / 2) * l;
+            const yOffset = (a / 2) * 0.25; 
+
+            triEqui(ctx, x, y - yOffset, l, color);
+            triEqui(ctx, x, y + yOffset, l, color, rev = true);
+        }
+
+        function triEqui(ctx, x, y, l, color = "#000", rev = false) {
             let a = (Math.sqrt(3) / 2) * l;
             ctx.lineWidth = 1;
             ctx.fillStyle = color;
@@ -74,6 +83,21 @@
             ctx.closePath();
             ctx.fill();
         }
+
+        function circ(ctx, x, y, r, l, color, fill = false) {
+            ctx.lineWidth = l;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI / 180 * 360);
+            ctx.strokeStyle = color;
+            ctx.stroke();
+
+            if (fill) {
+                ctx.fillStyle = fill;
+                ctx.fill();
+            }
+        }
+
+
     }
 
 </script>

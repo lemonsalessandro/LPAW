@@ -21,11 +21,10 @@
             width: 100vw;
         }
 
-
         #canvas {
             border: 1px solid black;
             width: 600px;
-            height: 500px;
+            height: 300px;
         }
     </style>
 
@@ -51,11 +50,11 @@
         triEqui(ctx, 200, 10, 80, "#0f0", true);
 
         function triEqui(ctx, x, y, l, color = "#000", rev = false) {
-            let a = (Math.sqrt(3) / 2) *l;
+            let a = (Math.sqrt(3) / 2) * l;
             ctx.lineWidth = 1;
             ctx.fillStyle = color;
             ctx.beginPath();
-        
+
             if (rev) {
                 ctx.moveTo(x, y + a);
                 ctx.lineTo(x - l / 2, y);
@@ -68,6 +67,8 @@
 
             ctx.closePath();
             ctx.fill();
+
+
         }
 
     }
