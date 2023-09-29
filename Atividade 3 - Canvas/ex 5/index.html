@@ -53,12 +53,12 @@
         function shield(ctx, x, y, size) {
             circ(ctx, x, y, size / 2.5, size / 5, "#f00", "#fff");
             circ(ctx, x, y, size / 5, size / 6.66, "#f00", "#00f");
-            drawStar(ctx, x, y/1.25, size/3, '#fff');
+            drawStar(ctx, x, y / 1.25, size / 3, '#fff');
         }
 
         function drawStar(ctx, x, y, l, color) {
             const a = (Math.sqrt(3) / 2) * l;
-            const yOffset = (a / 2) * 0.25; 
+            const yOffset = (a / 2) * 0.25;
 
             triEqui(ctx, x, y - yOffset, l, color);
             triEqui(ctx, x, y + yOffset, l, color, rev = true);

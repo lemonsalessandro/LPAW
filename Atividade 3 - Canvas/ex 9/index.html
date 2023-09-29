@@ -52,13 +52,23 @@
         ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height)
 
         //reflexo
-        ctx.shadowBlur = 50;
-        ctx.shadowColor = "white";
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
+        // ctx.shadowBlur = 50;
+        // ctx.shadowColor = "white";
+        // ctx.shadowOffsetX = 0;
+        // ctx.shadowOffsetY = 0;
+
+        let x = canvas.width / 2
+        let y = canvas.height * 1.15;
+        let r1 = 0
+        let r2 = 100
+        let fundoRadial = ctx.createRadialGradient(x, y/2, r1, x, y, r2)
+        fundoRadial.addColorStop(.1, "white")
+        fundoRadial.addColorStop(1, "rgba(255,255,255,.04)")
+        ctx.fillStyle = fundoRadial;
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
 
         //revisar forma de fazer um ciruclo com blur maior
-        circ(ctx, canvas.width / 2, canvas.height * 1.1, 100, "none", "rgba(255,255,255, 0.8)");
+        // circ(ctx, canvas.width / 2, canvas.height, 50, "white", fundoRadial);
 
         //background 2
         ctx.shadowBlur = 0;
