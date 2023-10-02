@@ -52,6 +52,8 @@
     let fontSize = 10;
     let columns = canvas.width / fontSize;
     let drops = [];
+    let matrixText = "TESTE";
+    matrixText.split("0");
 
     //1 = y co-ordinate of the drop(same for every drop initially)
     for (let x = 0; x < columns; x++)
@@ -62,20 +64,22 @@
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = fontSize + "px arial";
+        ctx.fillStyle = "#0F0";
+
 
         //numero de colunas V
         for (let i = 0; i < drops.length; i++) {
 
-            if (Math.random() > (Math.random() * 9.75)) {
-                binaryText = "CSTSI".split("");
-                ctx.fillStyle = "#FFF";
-            }
-            else {
-                binaryText = "01".split("");
-                ctx.fillStyle = "#0F0";
-            }            
+            // if (Math.random() > (Math.random() * 9.75)) {
+            //     matrixText = "CSTSI".split("");
+            //     ctx.fillStyle = "#FFF";
+            // }
+            // else {
+            //     matrixText = "01".split("");
+            //     ctx.fillStyle = "#0F0";
+            // }            
 
-            let text = binaryText[Math.floor(Math.random() * binaryText.length)];
+            let text = matrixText[Math.floor(Math.random() * matrixText.length)];
             
             
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
