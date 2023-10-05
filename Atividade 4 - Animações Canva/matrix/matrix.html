@@ -25,8 +25,6 @@
 
         #canvas {
             border: 1px solid black;
-            width: 1000px;
-            height: 500px;
         }
     </style>
 
@@ -35,7 +33,7 @@
 <body>
 
     <div class="container">
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" width="800px" height="400px"></canvas>
     </div>
 
 </body>
@@ -48,14 +46,12 @@
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
-
-
     //chinese characters - taken from the unicode charset
     let fontSize = 10;
     let columns = canvas.width / fontSize;
     let drops = [];
-    let matrixText = "TESTE";
-    matrixText.split("0");
+    let matrixText = "010";
+    matrixText.split("");
 
     //1 = y co-ordinate of the drop(same for every drop initially)
     for (let x = 0; x < columns; x++)
@@ -68,21 +64,10 @@
         ctx.font = fontSize + "px arial";
         ctx.fillStyle = "#0F0";
 
-
         //numero de colunas V
         for (let i = 0; i < drops.length; i++) {
 
-            // if (Math.random() > (Math.random() * 9.75)) {
-            //     matrixText = "CSTSI".split("");
-            //     ctx.fillStyle = "#FFF";
-            // }
-            // else {
-            //     matrixText = "01".split("");
-            //     ctx.fillStyle = "#0F0";
-            // }            
-
             let text = matrixText[Math.floor(Math.random() * matrixText.length)];
-
 
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
@@ -95,7 +80,7 @@
 
     }
 
-    setInterval(draw, 50); //35
+    setInterval(draw, 50);
 </script>
 
 </html>
