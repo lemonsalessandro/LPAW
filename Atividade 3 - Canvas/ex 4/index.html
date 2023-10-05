@@ -23,8 +23,6 @@
 
         #canvas {
             border: 1px solid black;
-            width: 600px;
-            height: 300px;
         }
     </style>
 
@@ -33,7 +31,7 @@
 <body>
 
     <div class="container">
-        <canvas id="canvas"></canvas>
+        <canvas width="800px" height="400px" id="canvas"></canvas>
     </div>
 
 </body>
@@ -46,16 +44,16 @@
 
         let ctx = document.getElementById("canvas").getContext('2d');
 
-        drawStar(ctx, 50,50,50, 'Saddlebrown');
-        drawStar(ctx, 100,25,40, 'gray');
-        drawStar(ctx, 150,50,40, 'gold');
+        drawStar(ctx, 50, 50, 50, 'Saddlebrown');
+        drawStar(ctx, 100, 25, 40, 'gray');
+        drawStar(ctx, 150, 50, 40, 'gold');
 
-       function drawStar(ctx, x, y, l, color){
-        triEqui(ctx, x, y/1.5, l, color);
-        triEqui(ctx, x, y, l, color, rev = true);
-       }
+        function drawStar(ctx, x, y, l, color) {
+            triEqui(ctx, x, y / 1.5, l, color);
+            triEqui(ctx, x, y, l, color, rev = true);
+        }
 
-       function triEqui(ctx, x, y, l, color = "#000", rev = false) {
+        function triEqui(ctx, x, y, l, color = "#000", rev = false) {
             let a = (Math.sqrt(3) / 2) * l;
             ctx.lineWidth = 1;
             ctx.fillStyle = color;

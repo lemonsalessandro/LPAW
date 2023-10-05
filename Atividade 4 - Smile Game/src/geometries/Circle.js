@@ -23,14 +23,14 @@ export default class Circle {
 		ctx.lineWidth = line;
 		ctx.strokeStyle = color
 		ctx.beginPath();
-		ctx.arc(pos_x, pos_y, radius, 0, Math.PI*2);
+		ctx.arc(pos_x, pos_y, radius, 0, Math.PI * 2);
 		ctx.stroke();
 		if (fill) {
 			ctx.fillStyle = fill
 			ctx.fill()
 		}
 	}
-	
+
 	anda(limits, key) {
 
 		switch (key) {
@@ -67,7 +67,7 @@ export default class Circle {
 			this.x = -this.size
 		else if (this.x + this.size < 0)
 			this.x = limits.width - this.size
-		
+
 		if (this.y > limits.height)
 			this.y = -this.size
 		else if (this.y + this.size < 0)
@@ -75,7 +75,7 @@ export default class Circle {
 	}
 
 	colide(circ) {
-		return Math.abs(this.x-circ.x) < (this.size+circ.size)*0.9
-			   && Math.abs(this.y-circ.y) < (this.size+circ.size)*0.9
+		return Math.abs(this.x - circ.x) < (this.size + circ.size) * 0.9
+			&& Math.abs(this.y - circ.y) < (this.size + circ.size) * 0.9
 	}
 }

@@ -48,6 +48,8 @@
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
+
+
     //chinese characters - taken from the unicode charset
     let fontSize = 10;
     let columns = canvas.width / fontSize;
@@ -80,16 +82,17 @@
             // }            
 
             let text = matrixText[Math.floor(Math.random() * matrixText.length)];
-            
-            
+
+
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
             //sending the drop back to the top randomly after it has crossed the screen adding a randomness to the reset to make the drops scattered on the Y axis
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975){
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                 drops[i] = 0;
             }
-                drops[i]++;
+            drops[i]++;
         }
+
     }
 
     setInterval(draw, 50); //35

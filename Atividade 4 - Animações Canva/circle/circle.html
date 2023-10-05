@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        #canvas {
+            border: 2px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <canvas width="800px" height="400px" id="canvas"></canvas>
+    </div>
+
+</body>
+
+<script>
+
+    class Circle {
+        constructor(x, y, r, l, fill, vely) {
+            this.x = x;
+            this.y = y;
+            this.r = r;
+            this.l = l;
+            this.fill = fill;
+            this.vely = vely;
+        }
+
+        draw(ctx) {
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI / 180 * 360);
+            ctx.fillStyle = this.fill;
+            ctx.fill();
+        }
+
+        move() {
+            this.y += this.vely;
+
+            if (this.y > canvas.height) {
+                this.y = 20;
+            }
+            console.log(this.y)
+        }
+
+    }
+
+    window.addEventListener("load", canvasApp, false)
+
+    function canvasApp() {
+
+
+        let ctx = document.getElementById("canvas").getContext('2d');
+
+        let randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+        let x = canvas.width / 2;
+        let y = Math.random() * 100;
+        let velocity = 15;
+        let qtdcircles = 10;
+        let circles = Array.from({ length: qtdcircles })
+
+        let circle = new Circle(canvas.width / 2, 20, 30, 1, randomColor, 20)
+
+        const loop = () => {
+            requestAnimationFrame(loop)
+            clearScreen(ctx)
+
+            circle.draw(ctx)
+            circle.move()
+        }
+        loop()
+
+
+        function clearScreen(ctx) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        }
+    }
+</script>
+
+</html>
