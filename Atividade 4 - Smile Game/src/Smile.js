@@ -12,6 +12,7 @@ export default class Smile extends Circle {
 
 		this.draw(ctx)
 
+		//OLHOS
 		this.circ(ctx,
 			this.x - this.size / 2.5,
 			this.y - this.size / 4,
@@ -22,6 +23,7 @@ export default class Smile extends Circle {
 			this.y - this.size / 4,
 			this.size * .1, 1, 'black', 'black')
 
+		//BOCA
 		ctx.beginPath()
 		ctx.lineWidth = 2
 		ctx.arc(this.x, this.y + this.size / 4, this.size / 2, 0, Math.PI)
@@ -38,29 +40,37 @@ export default class Smile extends Circle {
 				sx: 0,
 				sy: this.speed
 			},
-			'ArrowUp': { sx: 0, sy: - this.speed },
-			'ArrowLeft': { sx: - this.speed, sy: 0 },
-			'ArrowRight': { sx: this.speed, sy: 0 }
+			'ArrowUp': {
+				sx: 0,
+				sy: -this.speed
+			},
+			'ArrowLeft': {
+				sx: -this.speed,
+				sy: 0
+			},
+			'ArrowRight': {
+				sx: this.speed,
+				sy: 0
+			}
 		}
-		
-		console.log(key)
+
 		this.status = movements[key] ? key : this.status
-		
+
 		const { sx, sy } = movements[this.status]
-		
+
 		this.x += sx
 		this.y += sy
+
 		this.limits(limits)
 	}
 
 	limits(limits) {
-		//var = (teste)?TRUE:FALSA;
-		this.x = (this.x - this.size > limits.width)
-			? -this.size //TRUE
-			: this.x	//FALSE
-
-		this.x = this.x + this.size < 0 ? limits.width - this.size : this.x
-		this.y = this.y - this.size > limits.height + this.size ? -this.size : this.y
-		this.y = this.y + this.size < 0 ? limits.height + this.size : this.y
+		this.x = Math.max(this.size / 2, Math.min(this.x, limits.width - this.size / 2))
+		this.y = Math.max(this.size / 2, Math.min(this.y, limits.height - this.size / 2))
 	}
+
+	aumenta() {
+		this.size += 2;
+	}
+
 }

@@ -1,64 +1,95 @@
 import Enemy from "./Enemy"
 import Smile from "./Smile"
-import Point from "./points"
+import Point from "./Point"
+import Circle from "./geometries/Circle"
 import { keyPress, key } from "./keyboard"
 
-let CTX
-let CANVAS
-const FRAMES = 30;
-
-const qtdEnemies = 8
-
-let enemies = Array.from({ length: qtdEnemies });
-
-const smile = new Smile(200, 200, 20, 5, 'yellow')
-
-let gameover = false;
+let score = 0;
+let scoreText = document.getElementById('score');
+let bestScore = document.getElementById('bestScore');
+let ctx;
+let canvas;
+let frames = 30;
 let animeReqReference;
-let boundaries
+let boundaries;
+let qtdEnemies = 10;
+let enemies = Array.from({ length: qtdEnemies });
+let smile = new Smile(200, 200, 20, 5, 'yellow');
+let point = new Point(400, 200, 8, 5, 'lime');
+
+const resetGame = () => {
+	smile = new Smile(200, 200, 20, 5, 'yellow');
+	point = new Point(Math.random() * canvas.width, Math.random() * canvas.height, 8, 5, 'lime');
+	score = 0;
+	scoreText.innerText = `Score: ${score}`;
+	enemies = enemies.map(i => new Enemy(
+		Math.random() * canvas.width,
+		Math.random() * canvas.height,
+		10, 5, `#${Math.floor(Math.random() * 16777215).toString(16)}`
+	));
+}
 
 const loop = () => {
 	setTimeout(() => {
-
-		CTX.clearRect(0, 0, CANVAS.width, CANVAS.height)
-		//input
-		smile.move(boundaries, key)//update
-		smile.paint(CTX)//draw
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
+		smile.move(boundaries, key)
+		smile.paint(ctx)
+		point.draw(ctx)
 
 		enemies.forEach(e => {
 			e.move(boundaries, 0)
-			e.draw(CTX)
-			//var = teste?verdadeiro:falso;
-			gameover = !gameover
-				? e.colide(smile)
-				: true;
+			e.draw(ctx)
+
+			//colisao com algum dos enemies acaba o jogo
+			if (e.colide(smile)) {
+				alert("GAME OVER");
+				resetGame(); // Reiniciar o jogo quando o Smile colidir com um Enemy
+			}
+
+			//muda a cor do enemy quando ele sai da tela
+			if (e.y > canvas.height) {
+				e.mudaCor();
+			}
 		})
 
-		if (gameover) {
-			console.error('DEAD!!!')
-			cancelAnimationFrame(animeReqReference)
-		} else animeReqReference = requestAnimationFrame(loop)
+		//colisao com o point gera um novo point
+		if (smile.colide(point)) {
+			point = new Point(Math.random() * canvas.width, Math.random() * canvas.height, 8, 5, `#${Math.floor(Math.random() * 16777215).toString(16)}`);
+			score++;
+			scoreText.innerText = `Score: ${score}`;
+			smile.aumenta();
+		}
 
-	}, 1000 / FRAMES)
+		// requestAnimationFrame(loop);
+
+		if(score > localStorage.getItem('bestScore')){
+			localStorage.setItem('bestScore', score);
+		}
+
+		if(localStorage.getItem('bestScore')){
+			bestScore.innerText = `Best Score: ${localStorage.getItem('bestScore')}`;
+		}
+
+	}, 1000 / frames)
 }
 
-// export default function init(){
-// function init(){
+
 const init = () => {
-	console.log("Initialize Canvas")
-	CANVAS = document.querySelector('canvas')
-	CTX = CANVAS.getContext('2d')
+	canvas = document.querySelector('canvas')
+	ctx = canvas.getContext('2d')
 
 	boundaries = {
-		width: CANVAS.width,
-		height: CANVAS.height
+		width: canvas.width,
+		height: canvas.height
 	}
 
 	enemies = enemies.map(i => new Enemy(
-		Math.random() * CANVAS.width,
-		Math.random() * CANVAS.height,
-		10, 5, 'red'
-	))
+		Math.random() * canvas.width,
+		Math.random() * canvas.height,
+		10, 5, `#${Math.floor(Math.random() * 16777215).toString(16)}`
+	)
+	)
+
 
 	keyPress(window)
 	loop()

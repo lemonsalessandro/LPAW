@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="#">
 	<title>Smile Game</title>
-	<script type='module' src="src/main.js"></script>
+	<link rel="stylesheet" href="./src/css/style.css">
 </head>
+
 <body>
-	<canvas width="600" height="400" tabindex="1">
-		Seu navegador não suporta a tag canvas!
-	</canvas>
+	<div class="container">
+		<div class="scores">
+			<h3 id="score">Score: 0</h3>
+			<h3 id="bestScore">Best: </h3>
+		</div>
+		<canvas width="1000" height="500" tabindex="1">
+			Seu navegador não suporta a tag canvas!
+		</canvas>
+	</div>
 </body>
+<script type='module' src="src/main.js"></script>
+
 </html>
