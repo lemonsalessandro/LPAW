@@ -22,7 +22,6 @@
             width: 100vw;
         }
 
-
         #canvas {
             border: 1px solid black;
         }
@@ -46,41 +45,43 @@
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
-    //chinese characters - taken from the unicode charset
     let fontSize = 10;
     let columns = canvas.width / fontSize;
     let drops = [];
-    let matrixText = "010";
+    let matrixText = "TSI";
     matrixText.split("");
 
     //1 = y co-ordinate of the drop(same for every drop initially)
-    for (let x = 0; x < columns; x++)
+    for (let x = 0; x < columns; x++) {
         drops[x] = 1;
+    }
 
     function draw() {
-        //Black BG for the canvas translucent BG to show trail
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = fontSize + "px arial";
-        ctx.fillStyle = "#0F0";
 
-        //numero de colunas V
+        if (Math.random() > 0.975) {
+            matrixText = "TSI".split("");
+            ctx.fillStyle = "#FFF";
+        }
+        else {
+            matrixText = "010".split("");
+            ctx.fillStyle = "#0F0";
+        }
+
         for (let i = 0; i < drops.length; i++) {
-
-            let text = matrixText[Math.floor(Math.random() * matrixText.length)];
-
+            let text = matrixText[i % matrixText.length];
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-            //sending the drop back to the top randomly after it has crossed the screen adding a randomness to the reset to make the drops scattered on the Y axis
             if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                 drops[i] = 0;
             }
+
             drops[i]++;
         }
-
     }
-
-    setInterval(draw, 50);
+    setInterval(draw, 100);
 </script>
 
 </html>
