@@ -2,11 +2,24 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matrix</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: black;
+        }
+
+        #canvas {
+            display: block;
+            border: 1px solid black;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -21,67 +34,78 @@
             height: 100vh;
             width: 100vw;
         }
-
-        #canvas {
-            border: 1px solid black;
-        }
     </style>
-
 </head>
 
 <body>
-
     <div class="container">
-        <canvas id="canvas" width="800px" height="400px"></canvas>
+        <canvas id="canvas"></canvas>
     </div>
 
-</body>
+    <script>
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        let text = "CSTSI".split("");
+        let fontSize = 12;
+        let drops = [];
+        let colunas = (canvas.width / fontSize) + (fontSize * 2.5);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-<script>
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
-
-    //making the canvas full screen
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-
-    let fontSize = 10;
-    let columns = canvas.width / fontSize;
-    let drops = [];
-    let matrixText = "TSI";
-    matrixText.split("");
-
-    //1 = y co-ordinate of the drop(same for every drop initially)
-    for (let x = 0; x < columns; x++) {
-        drops[x] = 1;
-    }
-
-    function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.font = fontSize + "px arial";
-
-        if (Math.random() > 0.975) {
-            matrixText = "TSI".split("");
-            ctx.fillStyle = "#FFF";
-        }
-        else {
-            matrixText = "010".split("");
-            ctx.fillStyle = "#0F0";
+        for (let i = 0; i < colunas; i++) {
+            drops[i] = { char: "", y: 0, text: false, index: 0 };
         }
 
-        for (let i = 0; i < drops.length; i++) {
-            let text = matrixText[i % matrixText.length];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
+            ctx.fillStyle = "#0f0";
+            ctx.font = fontSize + "px arial";
+
+            for (let i = 0; i < colunas; i++) {
+                let coluna = drops[i];
+
+                if (coluna.char === text[0] || coluna.text == true) {
+                    coluna.index++;
+                    coluna.text = true;
+                    coluna.char = text[coluna.index];
+                } else {
+                    coluna.char = String.fromCharCode(
+                        65 + Math.floor(Math.random() * 26)
+                    );
+                }
+
+                let x = i * 20;
+                let y = coluna.y * 25;
+
+                if (coluna.char === text[0] || coluna.text == true) {
+                    ctx.fillStyle = "#fff";
+                } else {
+                    ctx.fillStyle = "#0f0";
+                }
+
+                if (coluna.index == text.length - 1) {
+                    coluna.text = false;
+                    coluna.index = 0;
+                }
+
+                ctx.fillText(coluna.char, x, y);
+
+                if (y > canvas.height && Math.random() > 0.9) {
+                    coluna.y = 0;
+                    coluna.char = "";
+                }
+
+                coluna.y++;
             }
-
-            drops[i]++;
         }
-    }
-    setInterval(draw, 100);
-</script>
+
+        setInterval(draw, 60);
+
+        window.addEventListener("load", canvasApp, false);
+
+    </script>
+</body>
 
 </html>

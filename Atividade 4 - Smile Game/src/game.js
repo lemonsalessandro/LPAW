@@ -60,7 +60,7 @@ const loop = () => {
 			smile.aumenta();
 		}
 
-		// requestAnimationFrame(loop);
+		requestAnimationFrame(loop);
 
 		if(score > localStorage.getItem('bestScore')){
 			localStorage.setItem('bestScore', score);
