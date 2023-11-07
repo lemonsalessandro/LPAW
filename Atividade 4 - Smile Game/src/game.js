@@ -46,6 +46,8 @@ const loop = () => {
 				resetGame(); // Reiniciar o jogo quando o Smile colidir com um Enemy
 			}
 
+			console.log(e.colide(smile))
+
 			//muda a cor do enemy quando ele sai da tela
 			if (e.y > canvas.height) {
 				e.mudaCor();

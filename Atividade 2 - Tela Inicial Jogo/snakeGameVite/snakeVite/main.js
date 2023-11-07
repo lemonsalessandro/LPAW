@@ -31,13 +31,13 @@ window.onload = async function () {
     let scorePosX = Math.floor(Math.random() * 20);
     let scorePosY = Math.floor(Math.random() * 20);
     let bestScore = document.getElementById('best');
-    let totalSpritesX = 6	
-    let x = 0
+    let totalSpritesX = 6;
+    let x = 0;
     let cellWidth = 200;
 
     function game(timestamp) {
         if (!lastTime) {
-            lastTime = timestamp; ''
+            lastTime = timestamp;
         }
 
         let deltaTime = timestamp - lastTime;
@@ -70,7 +70,7 @@ window.onload = async function () {
             }
 
 
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#3c3c3c";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // ctx.fillStyle = "yellow";
@@ -110,7 +110,7 @@ window.onload = async function () {
             if (scorePosX == snakeX && scorePosY == snakeY) {
                 audio.src = "audio/point.wav";
                 audio.play();
-                snakeSize += 2;
+                snakeSize++;
                 scorePoints++;
                 score.innerHTML = scorePoints;
                 scorePosX = Math.floor(Math.random() * canvas.width / elSize);
@@ -140,6 +140,8 @@ window.onload = async function () {
         bestScore.innerHTML = `${localStorage.getItem('playerNameRecord')} - ${localStorage.getItem('bestScore')}`;
         requestAnimationFrame(game);
     }
+
+
 
     function keyboard(event) {
         if ((event.key === 'a') && velX !== vel) {
