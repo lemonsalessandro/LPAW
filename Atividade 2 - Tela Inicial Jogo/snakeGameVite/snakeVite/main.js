@@ -41,6 +41,7 @@ window.onload = async function () {
         }
 
         let deltaTime = timestamp - lastTime;
+
         if (deltaTime >= frameDelay) {
             lastTime = timestamp;
 
@@ -69,28 +70,28 @@ window.onload = async function () {
                 }
             }
 
-
             ctx.fillStyle = "#3c3c3c";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // ctx.fillStyle = "yellow";
             // ctx.fillRect(scorePosX * elSize, scorePosY * elSize, elSize, elSize);
 
-            if (x < totalSpritesX - 1) {
-                x += 1;
+            if (x < totalSpritesX -1) {
+                x++;
             } else {
                 x = 0;
             }
 
             ctx.drawImage(
-                backgroundImage, // Imagem de origem (sprite da moeda)
-                x * cellWidth, 40,            // Posição de início no sprite (pode ser ajustada)
-                215, 235,        // Largura e altura de cada quadro no sprite
+                backgroundImage, 
+                x * cellWidth, 40,            // Posição de início no sprite 
+                215, 235,        // Largura e altura frame do sprite
                 scorePosX * elSize, scorePosY * elSize, // Posição no canvas
                 30, 30   // Largura e altura no canvas
             );
 
             ctx.fillStyle = localStorage.getItem('snakeColor');
+
             for (let i = 0; i < snakeBody.length; i++) {
                 ctx.fillRect(snakeBody[i].x * elSize, snakeBody[i].y * elSize, elSize, elSize);
 
@@ -119,11 +120,11 @@ window.onload = async function () {
         }
 
         if (!localStorage.getItem('playerName')) {
-            localStorage.setItem('playerName', "xxxx")
+            localStorage.setItem('playerName', "xxxx");
         }
 
         if (!localStorage.getItem('bestScore')) {
-            localStorage.setItem('bestScore', 0)
+            localStorage.setItem('bestScore', 0);
         }
         else {
             if (scorePoints > parseInt(localStorage.getItem('bestScore'))) {
@@ -132,8 +133,8 @@ window.onload = async function () {
                     audio.play();
                     flag = true;
                 }
-                localStorage.setItem('bestScore', scorePoints)
-                localStorage.setItem('playerNameRecord', localStorage.getItem('playerName'))
+                localStorage.setItem('bestScore', scorePoints);
+                localStorage.setItem('playerNameRecord', localStorage.getItem('playerName'));
             }
         }
 
@@ -179,7 +180,10 @@ window.onload = async function () {
     let backgroundImage = await ((url) => new Promise(resolve => {
         const img = new Image();
         img.src = url;
-        img.addEventListener("load", () => resolve(img));
+        img.addEventListener("load", () => {
+            resolve(img);
+            console.log("Imagem carregada");
+        });
     }))('img/coin.png');
 
     document.addEventListener("keydown", keyboard);
